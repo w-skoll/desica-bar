@@ -1,45 +1,62 @@
 using System.Runtime.InteropServices;
-using System.Windows.Forms;
 
 namespace DeSicaBar;
 
-sealed class HotKeyManager : NativeWindow, IDisposable
+sealed class HotKeyManager : IDisposable
 {
-    const int WM_HOTKEY = 0x0312;
+    [StructLayout(LayoutKind.Sequential)]
+    struct KBDLLHOOKSTRUCT { public uint vkCode, scanCode, flags, time; public IntPtr dwExtraInfo; }
 
-    [DllImport("user32.dll")] static extern bool RegisterHotKey(IntPtr hWnd, int id, uint fsModifiers, uint vk);
-    [DllImport("user32.dll")] static extern bool UnregisterHotKey(IntPtr hWnd, int id);
+    [DllImport("user32.dll")] static extern IntPtr SetWindowsHookEx(int idHook, LowLevelKeyboardProc fn, IntPtr hMod, uint threadId);
+    [DllImport("user32.dll")] static extern bool UnhookWindowsHookEx(IntPtr hook);
+    [DllImport("user32.dll")] static extern IntPtr CallNextHookEx(IntPtr hook, int code, IntPtr wParam, IntPtr lParam);
+    [DllImport("user32.dll")] static extern short GetKeyState(int vk);
 
-    const uint MOD_ALT = 0x0001;
-    const uint MOD_CONTROL = 0x0002;
+    delegate IntPtr LowLevelKeyboardProc(int code, IntPtr wParam, IntPtr lParam);
+
+    const int WH_KEYBOARD_LL = 13;
+    const int WM_KEYDOWN    = 0x0100;
+    const int WM_SYSKEYDOWN = 0x0104;
+    const int VK_CONTROL    = 0x11;
+    const int VK_MENU       = 0x12; // Alt
+
+    readonly Dictionary<uint, int> keyToId = new();
+    readonly LowLevelKeyboardProc hookProc; // manteniamo il riferimento per evitare GC
+    IntPtr hookHandle;
 
     public event Action<int>? HotKeyPressed;
 
-    readonly List<int> registeredIds = new();
-
     public HotKeyManager()
     {
-        CreateHandle(new CreateParams());
+        hookProc  = HookCallback;
+        hookHandle = SetWindowsHookEx(WH_KEYBOARD_LL, hookProc, IntPtr.Zero, 0);
     }
 
-    public bool Register(int id, uint vk)
-    {
-        if (!RegisterHotKey(Handle, id, MOD_CONTROL | MOD_ALT, vk)) return false;
-        registeredIds.Add(id);
-        return true;
-    }
+    public void Register(int id, uint vk) => keyToId[vk] = id;
 
-    protected override void WndProc(ref Message m)
+    IntPtr HookCallback(int code, IntPtr wParam, IntPtr lParam)
     {
-        if (m.Msg == WM_HOTKEY)
-            HotKeyPressed?.Invoke(m.WParam.ToInt32());
-        base.WndProc(ref m);
+        if (code >= 0 && (wParam == WM_KEYDOWN || wParam == WM_SYSKEYDOWN))
+        {
+            var kb   = Marshal.PtrToStructure<KBDLLHOOKSTRUCT>(lParam);
+            bool ctrl = (GetKeyState(VK_CONTROL) & 0x8000) != 0;
+            bool alt  = (GetKeyState(VK_MENU)    & 0x8000) != 0;
+
+            if (ctrl && alt && keyToId.TryGetValue(kb.vkCode, out var id))
+            {
+                HotKeyPressed?.Invoke(id);
+                return (IntPtr)1; // consuma il tasto, non lo passa ad altre app
+            }
+        }
+        return CallNextHookEx(hookHandle, code, wParam, lParam);
     }
 
     public void Dispose()
     {
-        foreach (var id in registeredIds)
-            UnregisterHotKey(Handle, id);
-        DestroyHandle();
+        if (hookHandle != IntPtr.Zero)
+        {
+            UnhookWindowsHookEx(hookHandle);
+            hookHandle = IntPtr.Zero;
+        }
     }
 }
