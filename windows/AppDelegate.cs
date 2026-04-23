@@ -22,9 +22,10 @@ sealed class AppDelegate : IDisposable
         new("Ma vattene a fa'",               "ma-vattene-a-fa",                0x38, "Ctrl+Alt+8"),
         new("Na bella figura de merda",       "na-bella-figura-de-merda",       0x39, "Ctrl+Alt+9"),
         new("Scherzo innocente, una burla",   "scherzo-innocente-una-burla",    0x30, "Ctrl+Alt+0"),
-        new("Sono un troione",                "sono-un-troione",                0xBD, "Ctrl+Alt+-"),
-        new("Stendere un velo",               "stendere-velo",                  0xBB, "Ctrl+Alt+="),
-        new("Sto a scherzà, sto a scherzà",   "sto-a-scherza-sto-a-scherza",   0xDB, "Ctrl+Alt+["),
+        new("Scivolata sul burino",           "scivolata-sul-burino",           0xC0, "Ctrl+Alt+\\"),
+        new("Sono un troione",                "sono-un-troione",                0xBD, "Ctrl+Alt+'"),
+        new("Stendere un velo",               "stendere-velo",                  0xBB, "Ctrl+Alt+ì"),
+        new("Sto a scherzà, sto a scherzà",   "sto-a-scherza-sto-a-scherza",   0xDB, "Ctrl+Alt++"),
     ];
 
     static readonly string[] AudioExts = ["mp3", "mp4", "m4a", "wav", "aiff", "aif"];
@@ -210,15 +211,35 @@ sealed class AppDelegate : IDisposable
 
     // MARK: - Custom sounds
 
+    // Le tray app non hanno una finestra madre: senza owner l'OpenFileDialog
+    // appare dietro le altre finestre. Creiamo una Form invisibile topmost
+    // solo per fare da parent e poi la chiudiamo subito.
+    static Form CreateDialogOwner()
+    {
+        var form = new Form
+        {
+            ShowInTaskbar = false,
+            FormBorderStyle = FormBorderStyle.None,
+            Opacity = 0,
+            Size = new Size(1, 1),
+            StartPosition = FormStartPosition.CenterScreen,
+            TopMost = true
+        };
+        form.Show();
+        return form;
+    }
+
     void AddCustomSound()
     {
+        using var owner = CreateDialogOwner();
         using var dlg = new OpenFileDialog
         {
             Title = "Scegli un file audio",
             Filter = "File audio|*.mp3;*.mp4;*.m4a;*.wav;*.aiff;*.aif|Tutti i file|*.*",
             Multiselect = false
         };
-        if (dlg.ShowDialog() != DialogResult.OK) return;
+        var result = dlg.ShowDialog(owner);
+        if (result != DialogResult.OK) return;
 
         var dst = Path.Combine(CustomDir, Path.GetFileName(dlg.FileName));
         if (File.Exists(dst)) File.Delete(dst);
