@@ -24,7 +24,7 @@ lipo -create "$TMP"/DeSicaBar-* -output "$APP/Contents/MacOS/DeSicaBar"
 rm -rf "$TMP"
 
 cp Info.plist         "$APP/Contents/Info.plist"
-cp assets/fish.svg    "$APP/Contents/Resources/fish.svg"
+cp assets/panettone.svg "$APP/Contents/Resources/panettone.svg"
 cp assets/AppIcon.icns "$APP/Contents/Resources/AppIcon.icns"
 cp DISCLAIMER.txt     "$APP/Contents/Resources/DISCLAIMER.txt"
 cp LICENSE            "$APP/Contents/Resources/LICENSE.txt"

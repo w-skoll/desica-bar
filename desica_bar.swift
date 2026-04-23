@@ -125,7 +125,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
     func applicationDidFinishLaunching(_ n: Notification) {
         NSApp.setActivationPolicy(.accessory)
         statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.variableLength)
-        if let btn = statusItem.button, let img = NSImage(named: "fish") {
+        if let btn = statusItem.button, let img = NSImage(named: "panettone") {
             img.isTemplate = true    // menu bar: auto white/black tint
             img.size = NSSize(width: 18, height: 18)
             btn.image = img

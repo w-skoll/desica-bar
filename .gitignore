@@ -1,7 +1,7 @@
 # Build artifacts
 BorisBar.app/
 dmg-staging/
-fish.iconset/
+panettone.iconset/
 *.dmg
 *.pkg
 
