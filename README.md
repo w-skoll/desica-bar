@@ -1,4 +1,4 @@
-# 🐟 De Sica Bar
+# 🎄 De Sica Bar
 
 > ⚠️ **FAN PROJECT NON COMMERCIALE — NON-COMMERCIAL FAN PROJECT**  
 > Questo è un progetto amatoriale gratuito, open source, senza scopo di lucro né valore commerciale, creato da un fan per uso personale e di altri fan. Non è affiliato, sponsorizzato, approvato o in alcun modo connesso con Filmauro, Medusa, Mediaset, o con gli autori, registi, interpreti o detentori dei diritti dei film. Tutti i marchi, titoli, personaggi, dialoghi e opere derivate sono proprietà dei rispettivi titolari.  
@@ -11,13 +11,11 @@ Menu bar app macOS ispirata alle frasi di Cristian De Sica. Clip audio iconici a
 
 Ultra-leggera (~4 MB RAM idle), zero dipendenze, Swift nativo + Cocoa + AVFoundation.
 
-![screenshot](docs/screenshot.png)
-
 ---
 
 ## ✨ Features
 
-- 🎣 Icona pesce rosso nella menu bar (invisibile nel Dock)
+- 🎄 Icona albero di natale nella menu bar (invisibile nel Dock)
 - 🎧 13 clip audio con shortcut globali `⌥⌘1` … `⌥⌘[`
 - ➕ Carica i tuoi suoni personalizzati via file picker
 - ⏱ Durata max 30s per clip, toggle start/stop premendo di nuovo lo shortcut
