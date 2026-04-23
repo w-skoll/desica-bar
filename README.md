@@ -7,28 +7,44 @@
 
 ---
 
-Menu bar app macOS ispirata alle frasi di Cristian De Sica. Clip audio iconici a portata di shortcut globale, dalla menu bar del Mac.
+App ispirata alle frasi di Cristian De Sica. 13 clip audio iconici a portata di shortcut globale, disponibile per **macOS** e **Windows**.
 
-Ultra-leggera (~4 MB RAM idle), zero dipendenze, Swift nativo + Cocoa + AVFoundation.
+Ultra-leggera, zero dipendenze, nativa su entrambe le piattaforme.
 
 ---
 
-## ✨ Features
+## 🖥 Piattaforme
 
-- 🎄 Icona albero di natale nella menu bar (invisibile nel Dock)
-- 🎧 13 clip audio con shortcut globali `⌥⌘1` … `⌥⌘[`
+| | macOS | Windows |
+|---|---|---|
+| **Posizione icona** | Menu bar (in alto) | System tray (in basso a destra) |
+| **Shortcut** | `⌥⌘1` … `⌥⌘[` | `Ctrl+Alt+1` … `Ctrl+Alt+[` |
+| **Avvio automatico** | Avvia al login (SMAppService) | Avvia con Windows (Registry) |
+| **Suoni custom** | `~/Library/Application Support/DeSicaBar/custom/` | `%APPDATA%\DeSicaBar\custom\` |
+| **Formato release** | `.dmg` | `.zip` con `.exe` |
+| **Requisiti** | macOS 13 Ventura+ | Windows 10/11 x64 |
+| **Runtime** | Nativo Swift | .NET 8 incluso nell'exe |
+| **Peso binario** | ~100 KB | ~15 MB (self-contained) |
+| **Stack** | Swift + Cocoa + AVFoundation | C# + WinForms + NAudio |
+
+---
+
+## ✨ Features (entrambe le versioni)
+
+- 🎄 Icona panettone nella menu bar / system tray (invisibile nel Dock / nella taskbar)
+- 🎧 13 clip audio con shortcut globali
 - ➕ Carica i tuoi suoni personalizzati via file picker
 - ⏱ Durata max 30s per clip, toggle start/stop premendo di nuovo lo shortcut
-- 🚀 Avvia al login (opzionale, togglable dal menu)
-- 🪶 Binario 100 KB, nessun Electron, nessun Python
+- 🚀 Avvio automatico con il sistema (opzionale, togglable dal menu)
+- 🪶 Nessun Electron, nessun Python
 
 ---
 
-## 📦 Installazione
+## 📦 Installazione — macOS
 
 ### Opzione A — DMG (consigliata)
 
-1. Scarica `DeSicaBar-1.0.dmg` dall'ultima [Release](../../releases/latest)
+1. Scarica `DeSicaBar-*.dmg` dall'ultima [Release](../../releases/latest)
 2. Aprilo e trascina `DeSicaBar.app` nella cartella `Applications`
 3. **Primo avvio — rimuovere la quarantena:** l'app non è firmata Apple Developer ID, quindi macOS la marca come "danneggiata". Apri Terminale e lancia una volta:
    ```bash
@@ -36,14 +52,13 @@ Ultra-leggera (~4 MB RAM idle), zero dipendenze, Swift nativo + Cocoa + AVFounda
    ```
    Poi apri l'app normalmente col doppio click.  
    (Alternativa: tasto destro → **Apri** → **Apri** — funziona solo su versioni vecchie di macOS, su Sequoia / Tahoe serve il comando sopra.)
-4. Clicca il pesce nella menu bar → scegli un clip.
+4. Clicca il panettone nella menu bar → scegli un clip.
 
 ### Opzione B — Build dai sorgenti
 
 ```bash
-git clone https://github.com/ale-ciano91/desica-bar.git
+git clone https://github.com/w-skoll/desica-bar.git
 cd desica-bar
-# Metti i tuoi file audio (mp3/wav/m4a) in assets/clips/
 ./build.sh
 open DeSicaBar.app
 ```
@@ -52,48 +67,84 @@ Richiede macOS 13+ e Command Line Tools (`xcode-select --install`).
 
 ---
 
+## 📦 Installazione — Windows
+
+### Opzione A — ZIP (consigliata)
+
+1. Scarica `DeSicaBar-*-win.zip` dall'ultima [Release](../../releases/latest)
+2. Estrai in una cartella a piacere (es. `C:\Program Files\DeSicaBar`)
+3. Avvia `DeSicaBar.exe`
+4. L'icona panettone appare nella system tray (angolo in basso a destra della taskbar)
+
+> ⚠️ **Primo avvio — SmartScreen:** Windows potrebbe mostrare "Windows ha protetto il PC".  
+> Clicca **"Ulteriori informazioni"** → **"Esegui comunque"**.  
+> Questo avviene perché l'app non ha una firma digitale a pagamento — è normale per i progetti open source gratuiti.
+
+### Opzione B — Build dai sorgenti
+
+```powershell
+git clone https://github.com/w-skoll/desica-bar.git
+cd desica-bar/windows
+dotnet run
+```
+
+Richiede [.NET 8 SDK](https://dotnet.microsoft.com/download/dotnet/8.0).
+
+---
+
 ## 🎵 Aggiungere suoni personalizzati
 
-Dal menu dell'app:
+Dal menu dell'app (uguale su entrambe le piattaforme):
 
-- **"Aggiungi suono personalizzato…"** → file picker → il suono viene copiato in  
-  `~/Library/Application Support/DeSicaBar/custom/` e compare nel menu
+- **"Aggiungi suono personalizzato…"** → file picker → il suono viene copiato nella cartella custom e compare nel menu
 - **"Apri cartella suoni"** → per rinominare/cancellare manualmente
 
-Formati supportati: `mp3`, `mp4`, `m4a`, `wav`, `aiff`, `caf`.  
+Cartelle:
+- **macOS:** `~/Library/Application Support/DeSicaBar/custom/`
+- **Windows:** `%APPDATA%\DeSicaBar\custom\`
+
+Formati supportati: `mp3`, `mp4`, `m4a`, `wav`, `aiff`.  
 Nome file = label nel menu.
 
 ---
 
 ## ⌨️ Shortcut globali predefiniti
 
-| Shortcut | Clip |
-|----------|------|
-| `⌥⌘1`    | A Dragon Ball |
-| `⌥⌘2`    | Aggiudicato |
-| `⌥⌘3`    | Ansia terribile |
-| `⌥⌘4`    | Category |
-| `⌥⌘5`    | Delicatissimi |
-| `⌥⌘6`    | Fucilata all'incrocio |
-| `⌥⌘7`    | Ma chi so' Mission Impossible |
-| `⌥⌘8`    | Ma vattene a fa' |
-| `⌥⌘9`    | Na bella figura de merda |
-| `⌥⌘0`    | Scherzo innocente, una burla |
-| `⌥⌘-`    | Sono un troione |
-| `⌥⌘=`    | Stendere un velo |
-| `⌥⌘[`    | Sto a scherzà, sto a scherzà |
+Funzionano ovunque, anche con altre app in primo piano. Ripremere lo stesso shortcut ferma la riproduzione.
 
-Funzionano ovunque, anche senza aprire il menu. Ripremere lo stesso shortcut ferma la riproduzione.
+| Clip | macOS | Windows |
+|------|-------|---------|
+| A Dragon Ball | `⌥⌘1` | `Ctrl+Alt+1` |
+| Aggiudicato | `⌥⌘2` | `Ctrl+Alt+2` |
+| Ansia terribile | `⌥⌘3` | `Ctrl+Alt+3` |
+| Category | `⌥⌘4` | `Ctrl+Alt+4` |
+| Delicatissimi | `⌥⌘5` | `Ctrl+Alt+5` |
+| Fucilata all'incrocio | `⌥⌘6` | `Ctrl+Alt+6` |
+| Ma chi so' Mission Impossible | `⌥⌘7` | `Ctrl+Alt+7` |
+| Ma vattene a fa' | `⌥⌘8` | `Ctrl+Alt+8` |
+| Na bella figura de merda | `⌥⌘9` | `Ctrl+Alt+9` |
+| Scherzo innocente, una burla | `⌥⌘0` | `Ctrl+Alt+0` |
+| Sono un troione | `⌥⌘-` | `Ctrl+Alt+-` |
+| Stendere un velo | `⌥⌘=` | `Ctrl+Alt+=` |
+| Sto a scherzà, sto a scherzà | `⌥⌘[` | `Ctrl+Alt+[` |
 
 ---
 
 ## 🛠 Stack tecnico
 
+### macOS
 - **Swift** (single-file `desica_bar.swift`, ~200 righe)
 - **Cocoa** — NSStatusItem, NSMenu
 - **AVFoundation** — AVAudioPlayer
 - **ServiceManagement** — SMAppService per login item (macOS 13+)
 - **Carbon.HIToolbox** — RegisterEventHotKey per shortcut globali (zero permessi accessibility)
+
+### Windows
+- **C#** (cartella `windows/`, ~300 righe)
+- **WinForms** — NotifyIcon, ContextMenuStrip
+- **NAudio** — riproduzione MP3/WAV
+- **Win32 P/Invoke** — RegisterHotKey per shortcut globali
+- **Registry** — HKCU\...\Run per avvio con Windows
 
 ---
 
@@ -124,8 +175,6 @@ Se sei un detentore di diritti e vuoi la rimozione dei contenuti:
 🐛 Oppure apri una [issue](../../issues) su GitHub  
 
 Per richieste DMCA / takedown valide (detentore dei diritti verificabile + identificazione del contenuto da rimuovere) i file saranno rimossi **entro 24 ore dalla ricezione**, in buona fede, senza contestazione legale.
-
-L'autore si impegna a rispettare ogni richiesta legittima di takedown.
 
 ### Uso da parte dei fan
 Scaricando e usando De Sica Bar riconosci che:
