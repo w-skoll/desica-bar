@@ -22,10 +22,10 @@ sealed class AppDelegate : IDisposable
         new("Ma vattene a fa'",               "ma-vattene-a-fa",                0x38, "Ctrl+Alt+8"),
         new("Na bella figura de merda",       "na-bella-figura-de-merda",       0x39, "Ctrl+Alt+9"),
         new("Scherzo innocente, una burla",   "scherzo-innocente-una-burla",    0x30, "Ctrl+Alt+0"),
-        new("Scivolata sul burino",           "scivolata-sul-burino",           0xC0, "Ctrl+Alt+\\"),
-        new("Sono un troione",                "sono-un-troione",                0xBD, "Ctrl+Alt+'"),
-        new("Stendere un velo",               "stendere-velo",                  0xBB, "Ctrl+Alt+ì"),
-        new("Sto a scherzà, sto a scherzà",   "sto-a-scherza-sto-a-scherza",   0xDB, "Ctrl+Alt++"),
+        new("Scivolata sul burino",           "scivolata-sul-burino",           0xE2, "Ctrl+Alt+<"),
+        new("Sono un troione",                "sono-un-troione",                0xDB, "Ctrl+Alt+'"),
+        new("Stendere un velo",               "stendere-velo",                  0xDD, "Ctrl+Alt+ì"),
+        new("Sto a scherzà, sto a scherzà",   "sto-a-scherza-sto-a-scherza",   0xBB, "Ctrl+Alt++"),
     ];
 
     static readonly string[] AudioExts = ["mp3", "mp4", "m4a", "wav", "aiff", "aif"];
