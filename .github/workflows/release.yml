@@ -34,11 +34,48 @@ jobs:
       - name: Build app
         run: bash build.sh
 
-      - name: Zip app
-        run: zip -r DeSicaBar.zip DeSicaBar.app
+      - name: Create DMG
+        run: |
+          hdiutil create \
+            -volname "De Sica Bar" \
+            -srcfolder DeSicaBar.app \
+            -ov \
+            -format UDZO \
+            "DeSicaBar-${{ github.ref_name }}.dmg"
+
+      - name: Compute SHA256
+        id: sha256
+        run: |
+          HASH=$(shasum -a 256 "DeSicaBar-${{ github.ref_name }}.dmg" | awk '{print $1}')
+          echo "hash=$HASH" >> $GITHUB_OUTPUT
 
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
         with:
-          files: DeSicaBar.zip
-          generate_release_notes: true
+          files: DeSicaBar-${{ github.ref_name }}.dmg
+          body: |
+            🍞 De Sica Bar ${{ github.ref_name }} — prima release
+            Menu bar app macOS con 13 clip audio iconici di Cristian De Sica + supporto per suoni personalizzati.
+
+            ## 📦 Installazione
+            1. Scarica `DeSicaBar-${{ github.ref_name }}.dmg` qui sotto
+            2. Aprilo e trascina `DeSicaBar.app` in Applications
+            3. **Primo avvio — obbligatorio:** apri Terminale e lancia una volta:
+            ```
+            xattr -cr /Applications/DeSicaBar.app
+            ```
+            Questo rimuove la quarantena di Gatekeeper (l'app non è firmata con Apple Developer ID). Dopo questo comando puoi aprire normalmente con doppio click.
+
+            ## ✨ Features
+            - 13 clip audio di Cristian De Sica con shortcut globali ⌥⌘1 … ⌥⌘0, ⌥⌘- e ⌥⌘=
+            - Caricamento suoni personalizzati via file picker
+            - Durata max 30s per clip, toggle start/stop
+            - Avvia al login (opzionale)
+            - Invisibile nel Dock
+
+            ## ⚙️ Requisiti
+            macOS 13 Ventura o superiore
+
+            Built with ❤️ + Swift — Fan project di [ale.ciano91@gmail.com](mailto:ale.ciano91@gmail.com)
+
+            **sha256:** `${{ steps.sha256.outputs.hash }}`
