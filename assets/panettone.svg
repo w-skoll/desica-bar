@@ -1,41 +1,70 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100%" height="100%">
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Livello_1" data-name="Livello 1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 612 792">
   <defs>
-    <mask id="cutouts">
-      <rect width="100" height="100" fill="white" />
-      
-      <g fill="black" stroke="black">
-        
-        <polygon points="50,34 60,45 53,45 65,56 55,56 70,67 30,67 45,56 35,56 47,45 40,45" stroke-width="0"/>
-        <rect x="46" y="67" width="8" height="6" stroke-width="0"/>
-        
-        <polygon points="50,22 52,25 56,25 53,28 54,32 50,30 46,32 47,28 44,25 48,25" stroke-width="0"/>
-        
-        <path d="M 28 20 Q 50 35 72 20" fill="none" stroke-width="2.5" stroke-linecap="round"/>
-        <path d="M 28 25 Q 50 10 72 25" fill="none" stroke-width="2.5" stroke-linecap="round"/>
-        
-        <line x1="12" y1="67" x2="88" y2="67" stroke-width="3" stroke-linecap="round"/>
-        
-        <line x1="24" y1="70" x2="26" y2="90" stroke-width="2" stroke-linecap="round"/>
-        <line x1="33" y1="70" x2="34" y2="90" stroke-width="2" stroke-linecap="round"/>
-        <line x1="42" y1="70" x2="42" y2="90" stroke-width="2" stroke-linecap="round"/>
-        <line x1="50" y1="70" x2="50" y2="90" stroke-width="2" stroke-linecap="round"/>
-        <line x1="58" y1="70" x2="58" y2="90" stroke-width="2" stroke-linecap="round"/>
-        <line x1="67" y1="70" x2="66" y2="90" stroke-width="2" stroke-linecap="round"/>
-        <line x1="76" y1="70" x2="74" y2="90" stroke-width="2" stroke-linecap="round"/>
-        
-        <circle cx="25" cy="40" r="2" stroke-width="0"/>
-        <circle cx="32" cy="55" r="1.5" stroke-width="0"/>
-        <circle cx="18" cy="50" r="2" stroke-width="0"/>
-        <circle cx="78" cy="42" r="1.5" stroke-width="0"/>
-        <circle cx="68" cy="52" r="2" stroke-width="0"/>
-        <circle cx="82" cy="54" r="1.5" stroke-width="0"/>
-        <circle cx="72" cy="35" r="1.5" stroke-width="0"/>
+    <style>
+      .cls-1 {
+        fill: #801c2c;
+      }
+
+      .cls-2 {
+        fill: #fff;
+      }
+
+      .cls-3 {
+        mask: url(#mask);
+      }
+
+      .cls-4 {
+        stroke-width: 18.36px;
+      }
+
+      .cls-4, .cls-5, .cls-6 {
+        fill: none;
+        stroke: #000;
+        stroke-linecap: round;
+        stroke-miterlimit: 24.48;
+      }
+
+      .cls-5 {
+        stroke-width: 12.24px;
+      }
+
+      .cls-6 {
+        stroke-width: 15.3px;
+      }
+    </style>
+    <mask id="mask" x="0" y="90" width="612" height="612" maskUnits="userSpaceOnUse">
+      <g id="cutouts">
+        <rect class="cls-2" y="90" width="612" height="612"/>
+        <g>
+          <polygon points="306 298.08 367.2 365.4 324.36 365.4 397.8 432.72 336.6 432.72 428.4 500.04 183.6 500.04 275.4 432.72 214.2 432.72 287.64 365.4 244.8 365.4 306 298.08"/>
+          <rect x="281.52" y="500.04" width="48.96" height="36.72"/>
+          <polygon points="306 224.64 318.24 243 342.72 243 324.36 261.36 330.48 285.84 306 273.6 281.52 285.84 287.64 261.36 269.28 243 293.76 243 306 224.64"/>
+          <path class="cls-6" d="M171.36,212.4c89.76,61.2,179.52,61.2,269.28,0"/>
+          <path class="cls-6" d="M171.36,243c89.76-61.2,179.52-61.2,269.28,0"/>
+          <line class="cls-4" x1="73.44" y1="500.04" x2="538.56" y2="500.04"/>
+          <line class="cls-5" x1="146.88" y1="518.4" x2="159.12" y2="640.8"/>
+          <line class="cls-5" x1="201.96" y1="518.4" x2="208.08" y2="640.8"/>
+          <line class="cls-5" x1="257.04" y1="518.4" x2="257.04" y2="640.8"/>
+          <line class="cls-5" x1="306" y1="518.4" x2="306" y2="640.8"/>
+          <line class="cls-5" x1="354.96" y1="518.4" x2="354.96" y2="640.8"/>
+          <line class="cls-5" x1="410.04" y1="518.4" x2="403.92" y2="640.8"/>
+          <line class="cls-5" x1="465.12" y1="518.4" x2="452.88" y2="640.8"/>
+          <circle cx="153" cy="334.8" r="12.24"/>
+          <circle cx="195.84" cy="426.6" r="9.18"/>
+          <circle cx="110.16" cy="396" r="12.24"/>
+          <circle cx="477.36" cy="347.04" r="9.18"/>
+          <circle cx="416.16" cy="408.24" r="12.24"/>
+          <circle cx="501.84" cy="420.48" r="9.18"/>
+          <circle cx="440.64" cy="304.2" r="9.18"/>
+        </g>
       </g>
     </mask>
   </defs>
-
-  <g mask="url(#cutouts)" fill="#801c2c">
-    <path d="M 12 68 C 12 8, 88 8, 88 68 Z"/>
-    <path d="M 16 66 L 20 92 C 20 96, 80 96, 80 92 L 84 66 Z"/>
+  <g class="cls-3">
+    <g>
+      <path class="cls-1" d="M73.44,506.16c0-367.2,465.12-367.2,465.12,0H73.44Z"/>
+      <path class="cls-1" d="M97.92,493.92l24.48,159.12c0,24.48,367.2,24.48,367.2,0l24.48-159.12H97.92Z"/>
+    </g>
   </g>
 </svg>

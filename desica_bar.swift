@@ -128,10 +128,20 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
     func applicationDidFinishLaunching(_ n: Notification) {
         NSApp.setActivationPolicy(.accessory)
         statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.variableLength)
-        if let btn = statusItem.button, let img = NSImage(named: "panettone") {
-            img.isTemplate = true    // menu bar: auto white/black tint
-            img.size = NSSize(width: 18, height: 18)
-            btn.image = img
+        if let btn = statusItem.button {
+            // NSImage(named:) does not search for .svg files — load explicitly via URL.
+            var img: NSImage?
+            if let url = Bundle.main.url(forResource: "panettone", withExtension: "svg") {
+                img = NSImage(contentsOf: url)
+            }
+            if img == nil { img = NSImage(named: "panettone") }  // last-ditch named lookup
+            if let img {
+                img.isTemplate = true
+                img.size = NSSize(width: 18, height: 18)
+                btn.image = img
+            } else {
+                btn.title = "🎄"  // always-visible fallback so the status item is never invisible
+            }
         }
         rebuildMenu()
         registerHotKeys()
